@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { 
-    View, 
-    Text, 
-    TextInput, 
-    FlatList, 
-    TouchableOpacity 
-} from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import Footer from './Footer';
+import Input from './Input';
+import AddTask from './AddTask';
+import ListItem from './ListItem';
 
 class TodoList extends Component {
     constructor() {
@@ -50,26 +47,7 @@ class TodoList extends Component {
                 data={this.state.taskArray}
                 extraData={this.state}
                 renderItem={({ item }) => (
-                        <View
-                            style={{
-                                height: 45,
-                                flexDirection: 'row',
-                                justifyContent: 'flex-start',
-                                alignItems: 'center',
-                                width: '100%',
-                                borderBottomWidth: 1,
-                                borderBottomColor: '#80CBC4',
-                                paddingLeft: 15,
-                                paddingRight: 15,
-                            }}
-                        >
-                            <Text style={{ fontSize: 16, fontWeight: '200' }} >
-                                {`${item.count}. `}
-                            </Text>
-                            <Text style={{ fontSize: 16, fontWeight: '200' }} >
-                                {item.text}
-                            </Text>
-                        </View>
+                        <ListItem item={item} />
                     )
                 }
                 keyExtractor={item => `${item.count}`}
@@ -78,79 +56,44 @@ class TodoList extends Component {
     }
 
     render() {
+        const { containerStyle, listStyle, warningStyle } = styles;
         return (
-            <View 
-                style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    justifyContent: 'center', 
-                    alignItems: 'center' 
-                }}
-            >
-                <View
-                    style={{
-                        width: '80%',
-                        justifyContent: 'flex-start',
-                        alignItems: 'center',
-                        borderRadius: 3,
-                        borderWidth: 1,
-                        borderColor: '#80CBC4',
-                    }}
-                >
+            <View style={containerStyle} >
+                <View style={listStyle} >
                     {this.renderList()}
-                    <View
-                        style={{
-                            height: 40,
-                            width: '100%',
-                            justifyContent: 'center',
-                            borderTopWidth: 1,
-                            borderColor: '#80CBC4',
-                            paddingLeft: 15,
-                            paddingRight: 15,
-                        }}
-                    >
-                        <TextInput
-                            value={this.state.inputValue}
-                            onChangeText={this.updateInputText.bind(this)}
-                            placeholder={'Task'}
-                            fontSize={18}
-                            maxLength={40}
-                        />
-                    </View>
-                    <TouchableOpacity
-                        style={{
-                            height: 40,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: '100%',
-                            backgroundColor: '#80CBC4',
-                            borderWidth: 1,
-                            borderColor: '#80CBC4',
-                            borderBottomRightRadius: 3,
-                            borderBottomLeftRadius: 3,
-                        }}
-                        onPress={this.addTask.bind(this)}
-                    >
-                        <Text 
-                            style={{ 
-                                color: 'white', 
-                                fontSize: 20, 
-                                fontWeight: '500' 
-                                }} 
-                        >Add Task</Text>
-                    </TouchableOpacity>
+                    <Input 
+                        value={this.state.inputValue} 
+                        onChangeText={this.updateInputText.bind(this)} 
+                    />
+                    <AddTask onPress={this.addTask.bind(this)} />
                 </View>
-                <Text 
-                    style={{ 
-                        color: 'rgba(100,100,100, 0.8)', 
-                        fontSize: 14, 
-                        fontWeight: '200' 
-                    }} 
-                >CharecterLimit:40 MaxTask:10 </Text>
+                <Text style={warningStyle}>CharecterLimit:40 MaxTask:10</Text>
                 <Footer onPress={this.clearList.bind(this)} />
             </View>
         );
     }
 }
+
+const styles = {
+    containerStyle: {
+        width: '100%', 
+        height: '100%', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+    },
+    listStyle: {
+        width: '80%',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        borderRadius: 3,
+        borderWidth: 1,
+        borderColor: '#80CBC4',
+    },
+    warningStyle: {
+        color: 'rgba(100,100,100, 0.8)', 
+        fontSize: 14, 
+        fontWeight: '200',
+    }
+};
 
 export default TodoList;
