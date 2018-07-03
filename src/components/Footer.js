@@ -1,8 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-const Footer = ({ onPress }) => {
-    return (
+const Footer = ({ onPress }) => (
         <TouchableOpacity
             onPress={onPress}
             style={{
@@ -17,7 +16,6 @@ const Footer = ({ onPress }) => {
         >
             <Text style={{ color: 'white', fontSize: 22, fontWeight: '500' }} >Clear List</Text>
         </TouchableOpacity >
-    );
-}
+);
 
 export default Footer;

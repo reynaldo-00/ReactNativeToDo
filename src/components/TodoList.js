@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native';
+import { 
+    View, 
+    Text, 
+    TextInput, 
+    FlatList, 
+    TouchableOpacity 
+} from 'react-native';
 import Footer from './Footer';
 
 class TodoList extends Component {
-
     constructor() {
         super();
         this.state = {
             taskArray: [],
             inputValue: '',
-        }
+        };
     }
 
     clearList() {
-        this.setState({taskArray: [], inputValue: ''})
+        this.setState({ taskArray: [], inputValue: '' });
     }
 
     addTask() {
@@ -21,7 +26,7 @@ class TodoList extends Component {
             const taskArray = this.state.taskArray;
             const count = taskArray.length + 1;
 
-            taskArray.push({text: this.state.inputValue, count});
+            taskArray.push({ text: this.state.inputValue, count });
             this.setState({ taskArray, inputValue: '' });
         }
         console.log(this.state);
@@ -44,8 +49,7 @@ class TodoList extends Component {
                 style={{ width: '100%' }}
                 data={this.state.taskArray}
                 extraData={this.state}
-                renderItem={({ item }) => {
-                    return (
+                renderItem={({ item }) => (
                         <View
                             style={{
                                 height: 45,
@@ -59,15 +63,15 @@ class TodoList extends Component {
                                 paddingRight: 15,
                             }}
                         >
-                            <Text style={{fontSize: 16, fontWeight: '200'}} >
+                            <Text style={{ fontSize: 16, fontWeight: '200' }} >
                                 {`${item.count}. `}
                             </Text>
-                            <Text style={{fontSize: 16, fontWeight: '200'}} >
+                            <Text style={{ fontSize: 16, fontWeight: '200' }} >
                                 {item.text}
                             </Text>
                         </View>
-                    );
-                }}
+                    )
+                }
                 keyExtractor={item => `${item.count}`}
             />
         );
@@ -75,7 +79,14 @@ class TodoList extends Component {
 
     render() {
         return (
-            <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+            <View 
+                style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    justifyContent: 'center', 
+                    alignItems: 'center' 
+                }}
+            >
                 <View
                     style={{
                         width: '80%',
@@ -120,11 +131,23 @@ class TodoList extends Component {
                         }}
                         onPress={this.addTask.bind(this)}
                     >
-                        <Text style={{ color: 'white', fontSize: 20, fontWeight: '500' }} >Add Task</Text>
+                        <Text 
+                            style={{ 
+                                color: 'white', 
+                                fontSize: 20, 
+                                fontWeight: '500' 
+                                }} 
+                        >Add Task</Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{color: 'rgba(100,100,100, 0.8)', fontSize: 14, fontWeight: '200'}} >CharecterLimit:40 MaxTask:10 </Text>
-                <Footer onPress={this.clearList.bind(this)}/>
+                <Text 
+                    style={{ 
+                        color: 'rgba(100,100,100, 0.8)', 
+                        fontSize: 14, 
+                        fontWeight: '200' 
+                    }} 
+                >CharecterLimit:40 MaxTask:10 </Text>
+                <Footer onPress={this.clearList.bind(this)} />
             </View>
         );
     }
