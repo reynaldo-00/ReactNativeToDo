@@ -1,4 +1,4 @@
-#ReactNative ToDo List App 
+# ReactNative ToDo List App 
 
 <table>
   <tr>
@@ -7,8 +7,8 @@
   <tr>
 </table>
 
-##Wokring On 
--Reusable Components 
--Implementing Redux 
--Multiple List 
--Edit Task, List Name 
+## Wokring On 
+- Reusable Components 
+- Implementing Redux 
+- Multiple List 
+- Edit Task, List Name 
