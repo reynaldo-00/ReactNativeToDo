@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import { updateList, clearList } from '../actions/ListActions';
 import Footer from './Footer';
 import Input from './Input';
 import AddTask from './AddTask';
@@ -9,24 +11,25 @@ class TodoList extends Component {
     constructor() {
         super();
         this.state = {
-            taskArray: [],
             inputValue: '',
         };
     }
 
     clearList() {
-        this.setState({ taskArray: [], inputValue: '' });
+        this.props.clearList();
+        this.setState({ inputValue: '' });
     }
 
     addTask() {
-        if (this.state.inputValue !== '' && this.state.taskArray.length < 10) {
-            const taskArray = this.state.taskArray;
+        if (this.state.inputValue !== '' && this.props.taskList.length < 10) {
+            const taskArray = this.props.taskList;
             const count = taskArray.length + 1;
 
             taskArray.push({ text: this.state.inputValue, count });
-            this.setState({ taskArray, inputValue: '' });
+            this.props.updateList(taskArray);
+            this.setState({ inputValue: '' });
         }
-        console.log(this.state);
+        console.log(this.props);
     }
 
     updateInputText(inputValue) {
@@ -34,7 +37,7 @@ class TodoList extends Component {
     }
 
     renderList() {
-        if (this.state.taskArray.length === 0) {
+        if (this.props.taskList.length === 0) {
             return (
                 <View style={{ height: 40, justifyContent: 'center', alignItems: 'center' }} >
                     <Text style={{ color: 'gray' }} >List Empty</Text>
@@ -44,7 +47,7 @@ class TodoList extends Component {
         return (
             <FlatList
                 style={{ width: '100%' }}
-                data={this.state.taskArray}
+                data={this.props.taskList}
                 extraData={this.state}
                 renderItem={({ item }) => (
                         <ListItem item={item} />
@@ -68,7 +71,7 @@ class TodoList extends Component {
                     <AddTask onPress={this.addTask.bind(this)} />
                 </View>
                 <Text style={warningStyle}>CharecterLimit:40 MaxTask:10</Text>
-                <Footer onPress={this.clearList.bind(this)} />
+                <Footer onPress={this.props.clearList.bind(this)} />
             </View>
         );
     }
@@ -96,4 +99,11 @@ const styles = {
     }
 };
 
-export default TodoList;
+const mapStateToProps = (state) => {
+    const { taskList } = state.list;
+    return {
+        taskList,
+    };
+};
+
+export default connect(mapStateToProps, { updateList, clearList })(TodoList);
