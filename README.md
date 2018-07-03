@@ -1,5 +1,5 @@
 # ToDo List
-ToDo List App made using ReactNative
+ToDo List App made using ReactNative using Redux
 
 <table>
   <tr>
@@ -10,6 +10,5 @@ ToDo List App made using ReactNative
 
 ## Working On 
 - Reusable Components 
-- Implementing Redux 
 - Multiple List 
 - Edit Task, List Name 
