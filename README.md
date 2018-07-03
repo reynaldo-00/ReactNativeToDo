@@ -1,4 +1,5 @@
-# ReactNative ToDo List App 
+# ToDo List
+ToDo List App made using ReactNative
 
 <table>
   <tr>
@@ -7,7 +8,7 @@
   <tr>
 </table>
 
-## Wokring On 
+## Working On 
 - Reusable Components 
 - Implementing Redux 
 - Multiple List 
