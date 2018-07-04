@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, TextInput } from 'react-native';
 
-const Input = ({ onChangeText, value }) => (
+const Input = ({ onChangeText, value, style }) => (
     <View
-        style={styles.containerStyle}
+        style={{ ...styles.containerStyle, ...style }}
     >
         <TextInput
             value={value}
@@ -19,9 +19,7 @@ const styles = {
     containerStyle: {
         height: 40,
         width: '100%',
-        justifyContent: 'center',
-        borderTopWidth: 1,
-        borderColor: '#80CBC4',
+        justifyContent: 'space-around',
         paddingLeft: 15,
         paddingRight: 15,
     }

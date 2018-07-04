@@ -1,9 +1,9 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 
-const AddTask = ({ onPress }) => (
+const AddTask = ({ onPress, editMode }) => (
     <TouchableOpacity
-        style={styles.containerStyle}
+        style={(editMode === false) ? styles.containerStyle : { height: 0 }}
         onPress={onPress}
     >
         <Text 

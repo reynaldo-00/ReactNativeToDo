@@ -23,23 +23,35 @@ class TodoList extends Component {
     addTask() {
         if (this.state.inputValue !== '' && this.props.taskList.length < 10) {
             const taskArray = this.props.taskList;
-            const count = taskArray.length + 1;
+            const count = (Math.random() * 100) + 1;
 
             taskArray.push({ text: this.state.inputValue, count });
             this.props.updateList(taskArray);
             this.setState({ inputValue: '' });
         }
-        console.log(this.props);
     }
 
     updateInputText(inputValue) {
         this.setState({ inputValue });
     }
 
+    updateList() {
+        this.setState(this.state);
+    }
+
     renderList() {
         if (this.props.taskList.length === 0) {
             return (
-                <View style={{ height: 40, justifyContent: 'center', alignItems: 'center' }} >
+                <View 
+                    style={{ 
+                        height: 40, 
+                        justifyContent: 'center', 
+                        alignItems: 'center',
+                        borderBottomWidth: 1,
+                        borderColor: '#80CBC4',
+                        width: '100%',
+                    }} 
+                >
                     <Text style={{ color: 'gray' }} >List Empty</Text>
                 </View>
             );
@@ -49,11 +61,17 @@ class TodoList extends Component {
                 style={{ width: '100%' }}
                 data={this.props.taskList}
                 extraData={this.state}
-                renderItem={({ item }) => (
-                        <ListItem item={item} />
-                    )
-                }
-                keyExtractor={item => `${item.count}`}
+                renderItem={({ item }) => {
+                    const itemOrder = this.props.taskList.indexOf(item);
+                    return (
+                        <ListItem 
+                            item={item} 
+                            orderNum={itemOrder} 
+                            listUpdated={this.updateList.bind(this)} 
+                        />
+                    );
+                }}
+                keyExtractor={item => `${item.count}${item.text}`}
             />
         );
     }
@@ -62,13 +80,20 @@ class TodoList extends Component {
         const { containerStyle, listStyle, warningStyle } = styles;
         return (
             <View style={containerStyle} >
-                <View style={listStyle} >
+                <View 
+                    style={
+                        (this.props.editMode === false) 
+                            ? { ...listStyle } 
+                                : { ...listStyle, borderBottomWidth: 0 }
+                    } 
+                >
                     {this.renderList()}
                     <Input 
                         value={this.state.inputValue} 
-                        onChangeText={this.updateInputText.bind(this)} 
+                        onChangeText={this.updateInputText.bind(this)}
+                        style={(this.props.editMode === false) ? {} : { height: 0 }}
                     />
-                    <AddTask onPress={this.addTask.bind(this)} />
+                    <AddTask onPress={this.addTask.bind(this)} editMode={this.props.editMode} />
                 </View>
                 <Text style={warningStyle}>CharecterLimit:40 MaxTask:10</Text>
                 <Footer onPress={this.props.clearList.bind(this)} />
@@ -100,9 +125,10 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-    const { taskList } = state.list;
+    const { taskList, editMode } = state.list;
     return {
         taskList,
+        editMode,
     };
 };
 

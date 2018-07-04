@@ -1,14 +1,17 @@
 # ToDo List
-ToDo List App made using ReactNative & Redux
+ToDo list app made in ReactNative
+
+## Showcases
+- Redux usuability
+- Being able to edit specific tasks
 
 <table>
   <tr>
     <td><img src="./screenshots/empty_list.png" width="200"></td>
     <td><img src="./screenshots/populated_list.png" width="200"></td>
+    <td><img src="./screenshots/editing_list.png" width="200"></td>
   <tr>
 </table>
 
 ## Working On 
-- Reusable Components 
 - Multiple List 
-- Edit Task, List Name 
