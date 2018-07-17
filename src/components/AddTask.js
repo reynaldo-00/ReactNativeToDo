@@ -14,13 +14,17 @@ const AddTask = ({ onPress, editMode }) => (
 
 const styles = {
     containerStyle: {
+        // position: 'absolute',
+        // bottom: 0,
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        backgroundColor: '#80CBC4',
+        backgroundColor: 'rgb(50,50,50)',
+        // backgroundColor: '#80CBC4',
         borderWidth: 1,
-        borderColor: '#80CBC4',
+        // borderColor: '#80CBC4',
+        borderColor: 'rgb(50,50,50)',
         borderBottomRightRadius: 3,
         borderBottomLeftRadius: 3,
     },

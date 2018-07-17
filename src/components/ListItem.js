@@ -93,13 +93,15 @@ const styles = {
         alignItems: 'center',
         width: '100%',
         borderBottomWidth: 1,
-        borderBottomColor: '#80CBC4',
+        // borderBottomColor: '#80CBC4',
+        borderBottomColor: 'white',
         paddingLeft: 15,
         paddingRight: 15,
     },
     textStyle: { 
         fontSize: 16, 
         fontWeight: '200',
+        color: 'white',
     },
     editStyle: {
         width: 40, 

@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { 
+    View, 
+    Text, 
+    FlatList, 
+    ScrollView, 
+    // Animated, 
+    // Keyboard, 
+    KeyboardAvoidingView,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { updateList, clearList } from '../actions/ListActions';
-import Footer from './Footer';
+import Header from './Header';
 import Input from './Input';
 import AddTask from './AddTask';
 import ListItem from './ListItem';
@@ -15,13 +23,19 @@ class TodoList extends Component {
         };
     }
 
+    componentWillMount() {
+    }
+
+    componentWillUnmount() {
+    }
+
     clearList() {
         this.props.clearList();
         this.setState({ inputValue: '' });
     }
 
     addTask() {
-        if (this.state.inputValue !== '' && this.props.taskList.length < 10) {
+        if (this.state.inputValue !== '') {
             const taskArray = this.props.taskList;
             const count = (Math.random() * 100) + 1;
 
@@ -44,12 +58,11 @@ class TodoList extends Component {
             return (
                 <View 
                     style={{ 
-                        height: 40, 
+                        height: '100%', 
+                        width: '100%',
                         justifyContent: 'center', 
                         alignItems: 'center',
-                        borderBottomWidth: 1,
-                        borderColor: '#80CBC4',
-                        width: '100%',
+                        top: 200,
                     }} 
                 >
                     <Text style={{ color: 'gray' }} >List Empty</Text>
@@ -58,7 +71,7 @@ class TodoList extends Component {
         }
         return (
             <FlatList
-                style={{ width: '100%' }}
+                style={{ width: '100%', height: '100%' }}
                 data={this.props.taskList}
                 extraData={this.state}
                 renderItem={({ item }) => {
@@ -75,28 +88,30 @@ class TodoList extends Component {
             />
         );
     }
+    
 
     render() {
-        const { containerStyle, listStyle, warningStyle } = styles;
+        const { containerStyle } = styles;
         return (
-            <View style={containerStyle} >
-                <View 
-                    style={
-                        (this.props.editMode === false) 
-                            ? { ...listStyle } 
-                                : { ...listStyle, borderBottomWidth: 0 }
-                    } 
+            <View style={{ ...containerStyle, }} >
+                <Header onPress={this.clearList.bind(this)} />
+                <ScrollView
+                    style={{ width: '100%', height: '100%', }}
                 >
                     {this.renderList()}
+                </ScrollView>
+                <KeyboardAvoidingView 
+                    style={{ width: '100%', alignSelf: 'flex-start' }}
+                    behavior="padding"
+                    enabled
+                >
                     <Input 
                         value={this.state.inputValue} 
                         onChangeText={this.updateInputText.bind(this)}
                         style={(this.props.editMode === false) ? {} : { height: 0 }}
                     />
                     <AddTask onPress={this.addTask.bind(this)} editMode={this.props.editMode} />
-                </View>
-                <Text style={warningStyle}>CharecterLimit:40 MaxTask:10</Text>
-                <Footer onPress={this.props.clearList.bind(this)} />
+                </KeyboardAvoidingView>
             </View>
         );
     }
@@ -106,8 +121,10 @@ const styles = {
     containerStyle: {
         width: '100%', 
         height: '100%', 
-        justifyContent: 'center', 
+        justifyContent: 'flex-start', 
         alignItems: 'center',
+        paddingTop: 60,
+        backgroundColor: 'black',
     },
     listStyle: {
         width: '80%',
@@ -115,13 +132,9 @@ const styles = {
         alignItems: 'center',
         borderRadius: 3,
         borderWidth: 1,
+        // borderColor: '#80CBC4',
         borderColor: '#80CBC4',
     },
-    warningStyle: {
-        color: 'rgba(100,100,100, 0.8)', 
-        fontSize: 14, 
-        fontWeight: '200',
-    }
 };
 
 const mapStateToProps = (state) => {

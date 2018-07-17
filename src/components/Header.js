@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StatusBar } from 'react-native';
+import { View, Text, StatusBar, TouchableOpacity } from 'react-native';
 
-const Header = () => (
+const Header = ({ onPress }) => (
     <View 
         style={styles.containerStyle} 
     >
@@ -11,6 +11,15 @@ const Header = () => (
         <Text style={styles.textStyle}>
             To Do List
         </Text>
+        <TouchableOpacity
+            style={{ position: 'absolute', alignSelf: 'flex-end', }}
+            onPress={onPress}
+        >
+            <Text 
+                style={styles.clearTextStyle} 
+            >Clear List</Text>
+        </TouchableOpacity>
+        
     </View>
 );
 
@@ -22,7 +31,8 @@ const styles = {
         width: '100%', 
         alignItems: 'center', 
         justifyContent: 'flex-end', 
-        backgroundColor: '#80CBC4',
+        backgroundColor: 'black',
+        // backgroundColor: '#80CBC4',
     },
     textStyle: { 
         color: 'white', 
@@ -30,6 +40,12 @@ const styles = {
         fontWeight: '600',
         marginBottom: 10,
     },
+    clearTextStyle: {
+        color: 'red', 
+        fontSize: 18, 
+        marginBottom: 10, 
+        marginRight: 10
+    }
 };
 
 
